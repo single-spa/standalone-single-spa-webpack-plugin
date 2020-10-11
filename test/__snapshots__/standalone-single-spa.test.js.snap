@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`standalone-single-spa-webpack-plugin basic-parcel 1`] = `
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Webpack App
+    </title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1"
+    >
+  </head>
+  <body>
+    <script type="systemjs-importmap"
+            src="https://react.microfrontends.app/importmap.json"
+    >
+    </script>
+    <script type="systemjs-importmap">
+      {
+  "imports": {
+    "basic-parcel": "/main.js"
+  },
+  "foo": "/foo.js"
+}
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/named-exports.js">
+    </script>
+    <script>
+      Promise.all([System.import('single-spa'), System.import('basic-parcel')]).then(function (values) {
+        const singleSpa = values[0];
+        const parcelConfig = values[1];
+        const parcelContainer = document.createElement('div');
+        parcelContainer.id = 'parcel-container';
+        document.body.appendChild(parcelContainer);
+        singleSpa.mountRootParcel(parcelConfig, { domElement: parcelContainer, name: 'basic-parcel' });
+      });
+    </script>
+  </body>
+</html>
+`;
+
+exports[`standalone-single-spa-webpack-plugin basic-usage 1`] = `
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Webpack App
+    </title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1"
+    >
+  </head>
+  <body>
+    <script type="systemjs-importmap"
+            src="https://react.microfrontends.app/importmap.json"
+    >
+    </script>
+    <script type="systemjs-importmap">
+      {
+  "imports": {
+    "basic-usage": "/main.js"
+  },
+  "foo": "/foo.js"
+}
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/named-exports.js">
+    </script>
+    <script>
+      System.import('single-spa').then(function (singleSpa) {
+  singleSpa.registerApplication({
+    name: 'basic-usage',
+    app: function () {
+      return System.import('basic-usage');
+    },
+    activeWhen: ["/"]
+  });
+  if (!window.location.pathname.startsWith('/')) {
+    singleSpa.navigateToUrl('/');
+  }
+  singleSpa.start();
+});
+    </script>
+  </body>
+</html>
+`;

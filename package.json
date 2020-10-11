@@ -1,0 +1,52 @@
+{
+  "name": "standalone-single-spa-webpack-plugin",
+  "version": "1.0.0",
+  "description": "A webpack plugin to run single-spa microfrontends as standalone",
+  "main": "lib/standalone-single-spa.js",
+  "scripts": {
+    "test": "jest",
+    "format": "prettier --write .",
+    "lint": "eslint lib"
+  },
+  "dependencies": {
+    "safe-require": "^1.0.4"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.14",
+    "eslint": "^7.11.0",
+    "eslint-config-node-important-stuff": "^1.1.0",
+    "html-webpack-plugin": "^4.5.0",
+    "husky": "^4.3.0",
+    "jest": "^26.5.2",
+    "jest-serializer-html": "^7.0.0",
+    "prettier": "^2.1.2",
+    "pretty-quick": "^3.0.2",
+    "webpack": "^5.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged && yarn lint"
+    }
+  },
+  "optionalDependencies": {
+    "html-webpack-plugin": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/single-spa/standalone-single-spa-webpack-plugin.git"
+  },
+  "keywords": [
+    "webpack",
+    "single-spa",
+    "standalone"
+  ],
+  "author": "Joel Denning",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/single-spa/standalone-single-spa-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/single-spa/standalone-single-spa-webpack-plugin#readme",
+  "engines": {
+    "node": ">= 8.3.0"
+  }
+}
