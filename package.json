@@ -1,6 +1,6 @@
 {
   "name": "standalone-single-spa-webpack-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A webpack plugin to run single-spa microfrontends as standalone",
   "main": "lib/standalone-single-spa.js",
   "scripts": {
