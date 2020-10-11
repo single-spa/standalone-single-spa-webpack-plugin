@@ -66,6 +66,38 @@ describe("standalone-single-spa-webpack-plugin", () => {
     const html = await readOutputHtml(outputDir);
     expect(html).toMatchSnapshot();
   });
+
+  test("disabled", async () => {
+    const outputDir = path.resolve(__dirname, "./output/basic-parcel");
+
+    const config = {
+      entry: path.resolve(__dirname, "./fixtures/basic/index.js"),
+      output: {
+        libraryTarget: "system",
+        path: outputDir,
+      },
+      plugins: [
+        new HtmlWebpackPlugin(),
+        new StandalonePlugin({
+          isParcel: true,
+          appOrParcelName: "basic-parcel",
+          importMapUrl: new URL(
+            "https://react.microfrontends.app/importmap.json"
+          ),
+          importMap: {
+            imports: {
+              foo: "/foo.js",
+            },
+          },
+          disabled: true,
+        }),
+      ],
+    };
+
+    const stats = await webpackCompile(config);
+    const html = await readOutputHtml(outputDir);
+    expect(html.includes("systemjs")).toBe(false);
+  });
 });
 
 function webpackCompile(config) {

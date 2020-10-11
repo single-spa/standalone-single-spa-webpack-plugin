@@ -6,36 +6,84 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
   </head>
   <body>
-    <script
-      type="systemjs-importmap"
-      src="https://react.microfrontends.app/importmap.json"
-    ></script>
-    <script type="systemjs-importmap">
-      {
-        "imports": {
-          "basic-parcel": "/main.js"
-        },
-        "foo": "/foo.js"
-      }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/named-exports.js"></script>
-    <script>
-      Promise.all([
-        System.import("single-spa"),
-        System.import("basic-parcel"),
-      ]).then(function (values) {
-        const singleSpa = values[0];
-        const parcelConfig = values[1];
-        const parcelContainer = document.createElement("div");
-        parcelContainer.id = "parcel-container";
-        document.body.appendChild(parcelContainer);
-        singleSpa.mountRootParcel(parcelConfig, {
-          domElement: parcelContainer,
-          name: "basic-parcel",
-        });
-      });
-    </script>
+    <script src="main.js"></script>
+    <main>
+      <h1>Your Microfrontend is not here</h1>
+      <p>
+        The basic-parcel microfrontend is running in "integrated" mode, since
+        standalone-single-spa-webpack-plugin is disabled. This means that it
+        does not work as a standalone application without changing
+        configuration.
+      </p>
+      <h2>How do I develop this microfrontend?</h2>
+      <p>To develop this microfrontend, try the following steps:</p>
+      <ol>
+        <li>
+          Copy the following URL to your clipboard:
+          <a target="_blank" rel="noopener" id="mf-url"></a>
+        </li>
+        <li>
+          In a new browser tab, go to the your single-spa web app. This is where
+          your "root config" is running. You do not have to run the root config
+          locally if it is already running on a deployed environment - go to the
+          deployed environment directly.
+        </li>
+        <li>
+          In the browser console, run
+          <code>localStorage.setItem('devtools', true);</code> Refresh the page.
+        </li>
+        <li>
+          A yellowish rectangle should appear at the bottom right of your
+          screen. Click on it. Find the name basic-parcel and click on it. If it
+          is not present, click on Add New Module.
+        </li>
+        <li>
+          Paste the URL above into the input that appears. Refresh the page.
+        </li>
+        <li>Congrats, your local code is now being used!</li>
+      </ol>
+      <p></p>
+      <p>
+        For further information about "integrated" mode, see the following
+        links:
+      </p>
+      <ul>
+        <li>
+          <a
+            target="_blank"
+            rel="noopener"
+            href="https://single-spa.js.org/docs/recommended-setup#local-development"
+            >Local Development Overview</a
+          >
+        </li>
+        <li>
+          <a
+            target="_blank"
+            rel="noopener"
+            href="https://github.com/joeldenning/import-map-overrides"
+            >Import Map Overrides Documentation</a
+          >
+        </li>
+      </ul>
+      <p></p>
+      <h2>If you prefer Standalone mode</h2>
+      <p>
+        To run this microfrontend in "standalone" mode, the
+        standalone-single-spa-webpack-plugin must not be disabled. More details
+        at the
+        <a
+          target="_blank"
+          rel="noopener"
+          href="https://github.com/single-spa/standalone-single-spa-webpack-plugin"
+          >Standalone Plugin Documentation</a
+        >.
+      </p>
+      <script>
+        const mfLink = document.getElementById("mf-url");
+        const fullSrc = new URL("/main.js", window.location.href);
+        mfLink.href = fullSrc;
+        mfLink.textContent = fullSrc;
+      </script>
+    </main>
   </body>
 </html>

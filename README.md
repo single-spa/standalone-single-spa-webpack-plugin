@@ -24,7 +24,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devServer: {
-    // Not required, but useful for running webpack-dev-server in SPA mode
+    // Not required, but it's often useful to run webpack-dev-server in SPA mode
     historyApiFallback: true
   },
   plugins: [
@@ -48,9 +48,12 @@ module.exports = {
         }
       },
 
-      // required - defaults to false. This determines whether to mount
+      // optional - defaults to false. This determines whether to mount
       // your microfrontend as an application or a parcel
       isParcel: false
+
+      // optional - you can disable the plugin by passing in this boolean
+      disabled: false
 
       // optional - the standalone plugin relies on optionalDependencies in the
       // package.json. If this doesn't work for you, pass in your HtmlWebpackPlugin
