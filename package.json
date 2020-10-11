@@ -8,6 +8,9 @@
     "format": "prettier --write .",
     "lint": "eslint lib"
   },
+  "files": [
+    "lib"
+  ],
   "dependencies": {
     "safe-require": "^1.0.4"
   },
