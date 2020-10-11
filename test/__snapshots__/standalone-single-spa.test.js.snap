@@ -21,9 +21,6 @@ exports[`standalone-single-spa-webpack-plugin basic-parcel 1`] = `
       {
   "imports": {
     "single-spa": "https://cdn.jsdelivr.net/npm/single-spa/lib/system/single-spa.dev.js",
-    "react": "https://cdn.jsdelivr.net/npm/react/umd/react.development.js",
-    "react-dom": "https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.development.js",
-    "vue": "https://cdn.jsdelivr.net/npm/vue/dist/vue.js",
     "basic-parcel": "/main.js",
     "foo": "/foo.js"
   }
@@ -70,9 +67,6 @@ exports[`standalone-single-spa-webpack-plugin basic-usage 1`] = `
       {
   "imports": {
     "single-spa": "https://cdn.jsdelivr.net/npm/single-spa/lib/system/single-spa.dev.js",
-    "react": "https://cdn.jsdelivr.net/npm/react/umd/react.development.js",
-    "react-dom": "https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.development.js",
-    "vue": "https://cdn.jsdelivr.net/npm/vue/dist/vue.js",
     "basic-usage": "/main.js",
     "foo": "/foo.js"
   }
