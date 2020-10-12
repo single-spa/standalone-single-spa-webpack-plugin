@@ -66,6 +66,10 @@ module.exports = {
 
 Now when you run `npm start` or `npm run serve`, you can view your code running on localhost, without setting up an import map override.
 
+## Customizing the HTML File
+
+You may customize the HTML file used by the standalone plugin by creating a `src/index.ejs` file. The standalone plugin injects its scripts at the end of the `<body>` of that file. This is done via [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin), which has a [template option](https://github.com/jantimon/html-webpack-plugin#options) that allows you to control the HTML template.
+
 ## Notes
 
 This plugin (currently) assumes that you are using SystemJS to load your microfrontends. If you are not using SystemJS and would like to use this plugin, please file a Github issue.
