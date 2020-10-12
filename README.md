@@ -10,7 +10,7 @@ A webpack plugin for running single-spa microfrontends in standalone mode. This 
 > - The import map used in this plugin's configuration may quickly become outdated if you use any sort of versioning (which is recommended as a best-practice in general). This may lead to developing locally against a package whose API has changed.
 > - Performance problems may not manifest until the application is in an integrated environment.
 > - All of these may add up leading to developer frustration and erosion of trust.
-> - The core team reserves the right to deprecate this plugin based on the feedback we receive from single-spa users.
+> - The single-spa core team may deprecate this plugin if it confuses more than helps.
 
 ## Installation
 
