@@ -2,7 +2,15 @@
 
 A webpack plugin for running single-spa microfrontends in standalone mode. This is an alternative to using [import-map-overrides](https://github.com/joeldenning/import-map-overrides).
 
-_Running in standalone mode is not 100% equivalent to when it's fully integrated into the rest of the app. For this reason, using import-map-overrides on an integrated environment is generally recommended._
+> **⚠️ Warning: Experimental**
+>
+> This plugin should be considered "experimental" in that the core team has not yet settled on a consensus as to if 'standalone mode' is how local development should be approached. Generally speaking, developers want this because "that's the way we used to do it". **There are potential pitfalls that you should understand before deciding to use this plugin.**
+>
+> - 'standalone' also means isolated which may lead to situations of "works on my machine, but not on the deployed environment."
+> - The import map used in this plugin's configuration may quickly become outdated if you use any sort of versioning (which is recommended as a best-practice in general). This may lead to developing locally against a package whose API has changed.
+> - Performance problems may not manifest until the application is in an integrated environment.
+> - All of these may add up leading to developer frustration and erosion of trust.
+> - The core team reserves the right to deprecate this plugin based on the feedback we receive from single-spa users.
 
 ## Installation
 
