@@ -2,7 +2,16 @@
 
 A webpack plugin for running single-spa microfrontends in standalone mode. This is an alternative to using [import-map-overrides](https://github.com/joeldenning/import-map-overrides).
 
-_Running in standalone mode is not 100% equivalent to when it's fully integrated into the rest of the app. For this reason, using import-map-overrides on an integrated environment is generally recommended._
+> **⚠️ Warning: Experimental**
+>
+> This plugin should be considered "experimental" since it is new. Standalone is not equivalent to developing in integrated mode. The single-spa core team created this plugin because it's an often-requested feature, but we're unsure if it will result in a better experience for the single-spa community. **There are potential pitfalls that you should understand before deciding to use this plugin.**
+>
+> - 'standalone' also means isolated which may lead to situations of "works on my machine, but not on the deployed environment."
+> - This plugin automatically upgrades to the latest versions of SystemJS and single-spa, which is likely different than most environments, which pin to a specific version.
+> - If a hard coded import map is used in this plugin's configuration, it may quickly become outdated. This may lead to developing locally against a package whose API has changed.
+> - By default, this plugin does not load any global scripts, fonts, or css in the HTML file.
+> - All of these may result in issues where the microfrontend looks or behaves differently in standalone mode versus when it is integrated, leading to developer frustration and erosion of trust.
+> - The single-spa core team may deprecate this plugin if it confuses more than helps.
 
 ## Installation
 
