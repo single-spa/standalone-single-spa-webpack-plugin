@@ -28,7 +28,7 @@ To use the plugin, add it to your webpack config. Then when you run webpack-dev-
 
 ```js
 // webpack.config.js
-const StandaloneSingleSpaPlugin = require('standalone-signle-spa-webpack-plugin');
+const StandaloneSingleSpaPlugin = require('standalone-single-spa-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -59,10 +59,10 @@ module.exports = {
 
       // optional - defaults to false. This determines whether to mount
       // your microfrontend as an application or a parcel
-      isParcel: false
+      isParcel: false,
 
       // optional - you can disable the plugin by passing in this boolean
-      disabled: false
+      disabled: false,
 
       // optional - the standalone plugin relies on optionalDependencies in the
       // package.json. If this doesn't work for you, pass in your HtmlWebpackPlugin
