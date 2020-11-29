@@ -5912,9 +5912,9 @@ resolve@^1.18.1:
     prettier: ^2.2.1
     pretty-quick: ^3.1.0
     webpack: 5.8.0
-  dependenciesMeta:
-    html-webpack-plugin:
-      optional: true
+  peerDependencies:
+    html-webpack-plugin: "*"
+    webpack: "*"
   languageName: unknown
   linkType: soft
 
