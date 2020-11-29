@@ -11,9 +11,6 @@
   "files": [
     "lib"
   ],
-  "dependencies": {
-    "safe-require": "^1.0.4"
-  },
   "devDependencies": {
     "@types/jest": "^26.0.15",
     "eslint": "^7.14.0",
@@ -31,8 +28,9 @@
       "pre-commit": "pretty-quick --staged && yarn lint"
     }
   },
-  "optionalDependencies": {
-    "html-webpack-plugin": "*"
+  "peerDependencies": {
+    "html-webpack-plugin": "*",
+    "webpack": "*"
   },
   "repository": {
     "type": "git",

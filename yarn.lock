@@ -5538,13 +5538,6 @@ resolve@^1.18.1:
   languageName: node
   linkType: hard
 
-"safe-require@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "safe-require@npm:1.0.4"
-  checksum: 5b6f6bb5ea32cff2ab752c7f1ee9e28220b4d812dd6e4e679d4085c601e1847a0bcb9d7e0d451f11fc4dc5e398e1b05da654ec77b68e5a015a787d72efaeb4ee
-  languageName: node
-  linkType: hard
-
 "safer-buffer@npm:>= 2.1.2 < 3, safer-buffer@npm:^2.0.2, safer-buffer@npm:^2.1.0, safer-buffer@npm:~2.1.0":
   version: 2.1.2
   resolution: "safer-buffer@npm:2.1.2"
@@ -5918,7 +5911,6 @@ resolve@^1.18.1:
     jest-serializer-html: ^7.0.0
     prettier: ^2.2.1
     pretty-quick: ^3.1.0
-    safe-require: ^1.0.4
     webpack: 5.8.0
   dependenciesMeta:
     html-webpack-plugin:
