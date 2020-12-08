@@ -30,8 +30,6 @@ exports[`standalone-single-spa-webpack-plugin basic-parcel 1`] = `
     </script>
     <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/named-exports.js">
-    </script>
     <script>
       Promise.all([System.import('single-spa'), System.import('basic-parcel')]).then(function (values) {
         const singleSpa = values[0];
@@ -75,8 +73,6 @@ exports[`standalone-single-spa-webpack-plugin basic-usage 1`] = `
     <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/named-exports.js">
     </script>
     <script>
       System.import('single-spa').then(function (singleSpa) {
