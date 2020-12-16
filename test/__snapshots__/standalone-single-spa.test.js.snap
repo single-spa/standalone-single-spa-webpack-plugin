@@ -26,6 +26,8 @@ exports[`standalone-single-spa-webpack-plugin basic-parcel 1`] = `
   }
 }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js">
@@ -69,6 +71,8 @@ exports[`standalone-single-spa-webpack-plugin basic-usage 1`] = `
     "foo": "/foo.js"
   }
 }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js">
     </script>
