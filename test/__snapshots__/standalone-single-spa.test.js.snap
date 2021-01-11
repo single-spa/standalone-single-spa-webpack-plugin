@@ -11,8 +11,6 @@ exports[`standalone-single-spa-webpack-plugin basic-parcel 1`] = `
     <meta name="viewport"
           content="width=device-width,initial-scale=1"
     >
-  </head>
-  <body>
     <script type="systemjs-importmap"
             src="https://react.microfrontends.app/importmap.json"
     >
@@ -42,6 +40,8 @@ exports[`standalone-single-spa-webpack-plugin basic-parcel 1`] = `
         singleSpa.mountRootParcel(parcelConfig, { domElement: parcelContainer, name: 'basic-parcel' });
       });
     </script>
+  </head>
+  <body>
   </body>
 </html>
 `;
@@ -57,8 +57,6 @@ exports[`standalone-single-spa-webpack-plugin basic-usage 1`] = `
     <meta name="viewport"
           content="width=device-width,initial-scale=1"
     >
-  </head>
-  <body>
     <script type="systemjs-importmap"
             src="https://react.microfrontends.app/importmap.json"
     >
@@ -93,6 +91,8 @@ exports[`standalone-single-spa-webpack-plugin basic-usage 1`] = `
   singleSpa.start();
 });
     </script>
+  </head>
+  <body>
   </body>
 </html>
 `;
