@@ -98,6 +98,52 @@ describe("standalone-single-spa-webpack-plugin", () => {
     const html = await readOutputHtml(outputDir);
     expect(html.includes("systemjs")).toBe(false);
   });
+
+  test("disabled import-map-overrides", async () => {
+    const outputDir = path.resolve(__dirname, "./output/basic-usage");
+
+    const config = {
+      entry: path.resolve(__dirname, "./fixtures/basic/index.js"),
+      output: {
+        libraryTarget: "system",
+        path: outputDir,
+      },
+      plugins: [
+        new HtmlWebpackPlugin(),
+        new StandalonePlugin({
+          appOrParcelName: "basic-usage",
+          importMapOverrides: false,
+        }),
+      ],
+    };
+
+    const stats = await webpackCompile(config);
+    const html = await readOutputHtml(outputDir);
+    expect(html).toMatchSnapshot();
+  });
+
+  test("import-map-overrides with local storage key", async () => {
+    const outputDir = path.resolve(__dirname, "./output/basic-usage");
+
+    const config = {
+      entry: path.resolve(__dirname, "./fixtures/basic/index.js"),
+      output: {
+        libraryTarget: "system",
+        path: outputDir,
+      },
+      plugins: [
+        new HtmlWebpackPlugin(),
+        new StandalonePlugin({
+          appOrParcelName: "basic-usage",
+          importMapOverridesLocalStorageKey: "devtools",
+        }),
+      ],
+    };
+
+    const stats = await webpackCompile(config);
+    const html = await readOutputHtml(outputDir);
+    expect(html).toMatchSnapshot();
+  });
 });
 
 function webpackCompile(config) {
