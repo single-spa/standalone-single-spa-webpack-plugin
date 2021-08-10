@@ -135,7 +135,6 @@ describe("standalone-single-spa-webpack-plugin", () => {
         new HtmlWebpackPlugin(),
         new StandalonePlugin({
           appOrParcelName: "basic-usage",
-          importMapOverridesLocalStorageKey: "devtools",
         }),
       ],
     };

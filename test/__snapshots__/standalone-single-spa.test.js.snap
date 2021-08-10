@@ -290,9 +290,7 @@ exports[`standalone-single-spa-webpack-plugin import-map-overrides with local st
     >
     <script src="https://cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js">
     </script>
-    <import-map-overrides-full dev-libs
-                               show-when-local-storage="devtools"
-    >
+    <import-map-overrides-full dev-libs>
     </import-map-overrides-full>
     <script>
       if (typeof fetch === 'undefined') {
