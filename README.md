@@ -75,6 +75,7 @@ module.exports = {
       importMapOverridesLocalStorageKey: null
 
       // optional - defaults to {}. The single-spa custom props passed to the application
+      // Note that these props are stringified into the HTML file
       customProps: {
         authToken: "sadf7889fds8u70df9s8fsd"
       }
