@@ -66,13 +66,18 @@ module.exports = {
       // package.json. If this doesn't work for you, pass in your HtmlWebpackPlugin
       // to ensure the correct one is being referenced
       HtmlWebpackPlugin,
-      
+
       // optional - defaults to true - turns on or off import-map-overrides.
       importMapOverrides: true,
-      
+
       // optional - defaults to null. This allows you to hide the import-map-overrides UI
       // unless a local storage key is set. See more info at https://github.com/joeldenning/import-map-overrides/blob/master/docs/ui.md#enabling-the-ui
       importMapOverridesLocalStorageKey: null
+
+      // optional - defaults to {}. The single-spa custom props passed to the application
+      customProps: {
+        authToken: "sadf7889fds8u70df9s8fsd"
+      }
     })
   ]
 }

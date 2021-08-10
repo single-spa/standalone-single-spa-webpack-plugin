@@ -31,6 +31,18 @@ exports[`standalone-single-spa-webpack-plugin basic-parcel 1`] = `
     </script>
     <import-map-overrides-full dev-libs>
     </import-map-overrides-full>
+    <script>
+      if (typeof fetch === 'undefined') {
+        document.write('
+      <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.4.0/dist/fetch.umd.js">
+      <\\/script>')
+      }
+      if (typeof String.prototype.startsWith === 'undefined' || typeof Promise === 'undefined') {
+        document.write('
+      <script src="https://cdn.jsdelivr.net/npm/@babel/polyfill@7.10.4/dist/polyfill.min.js">
+      <\\/script>')
+      }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js">
@@ -84,6 +96,18 @@ exports[`standalone-single-spa-webpack-plugin basic-usage 1`] = `
     </script>
     <import-map-overrides-full dev-libs>
     </import-map-overrides-full>
+    <script>
+      if (typeof fetch === 'undefined') {
+        document.write('
+      <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.4.0/dist/fetch.umd.js">
+      <\\/script>')
+      }
+      if (typeof String.prototype.startsWith === 'undefined' || typeof Promise === 'undefined') {
+        document.write('
+      <script src="https://cdn.jsdelivr.net/npm/@babel/polyfill@7.10.4/dist/polyfill.min.js">
+      <\\/script>')
+      }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js">
@@ -97,7 +121,76 @@ exports[`standalone-single-spa-webpack-plugin basic-usage 1`] = `
     app: function () {
       return System.import('basic-usage');
     },
-    activeWhen: ["/"]
+    activeWhen: ["/"],
+    customProps: {}
+  });
+  if (!window.location.pathname.startsWith('/')) {
+    singleSpa.navigateToUrl('/');
+  }
+  singleSpa.start();
+});
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
+`;
+
+exports[`standalone-single-spa-webpack-plugin customProps option 1`] = `
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Webpack App
+    </title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1"
+    >
+    <script type="systemjs-importmap">
+      {
+  "imports": {
+    "single-spa": "https://cdn.jsdelivr.net/npm/single-spa/lib/system/single-spa.dev.js",
+    "basic-usage": "/main.js"
+  }
+}
+    </script>
+    <meta name="importmap-type"
+          content="systemjs-importmap"
+    >
+    <script src="https://cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js">
+    </script>
+    <import-map-overrides-full dev-libs
+                               show-when-local-storage="devtools"
+    >
+    </import-map-overrides-full>
+    <script>
+      if (typeof fetch === 'undefined') {
+        document.write('
+      <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.4.0/dist/fetch.umd.js">
+      <\\/script>')
+      }
+      if (typeof String.prototype.startsWith === 'undefined' || typeof Promise === 'undefined') {
+        document.write('
+      <script src="https://cdn.jsdelivr.net/npm/@babel/polyfill@7.10.4/dist/polyfill.min.js">
+      <\\/script>')
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js">
+    </script>
+    <script>
+      System.import('single-spa').then(function (singleSpa) {
+  singleSpa.registerApplication({
+    name: 'basic-usage',
+    app: function () {
+      return System.import('basic-usage');
+    },
+    activeWhen: ["/"],
+    customProps: {"hi":"there"}
   });
   if (!window.location.pathname.startsWith('/')) {
     singleSpa.navigateToUrl('/');
@@ -133,6 +226,18 @@ exports[`standalone-single-spa-webpack-plugin disabled import-map-overrides 1`] 
     <meta name="importmap-type"
           content="systemjs-importmap"
     >
+    <script>
+      if (typeof fetch === 'undefined') {
+        document.write('
+      <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.4.0/dist/fetch.umd.js">
+      <\\/script>')
+      }
+      if (typeof String.prototype.startsWith === 'undefined' || typeof Promise === 'undefined') {
+        document.write('
+      <script src="https://cdn.jsdelivr.net/npm/@babel/polyfill@7.10.4/dist/polyfill.min.js">
+      <\\/script>')
+      }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js">
@@ -146,7 +251,8 @@ exports[`standalone-single-spa-webpack-plugin disabled import-map-overrides 1`] 
     app: function () {
       return System.import('basic-usage');
     },
-    activeWhen: ["/"]
+    activeWhen: ["/"],
+    customProps: {}
   });
   if (!window.location.pathname.startsWith('/')) {
     singleSpa.navigateToUrl('/');
@@ -188,6 +294,18 @@ exports[`standalone-single-spa-webpack-plugin import-map-overrides with local st
                                show-when-local-storage="devtools"
     >
     </import-map-overrides-full>
+    <script>
+      if (typeof fetch === 'undefined') {
+        document.write('
+      <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.4.0/dist/fetch.umd.js">
+      <\\/script>')
+      }
+      if (typeof String.prototype.startsWith === 'undefined' || typeof Promise === 'undefined') {
+        document.write('
+      <script src="https://cdn.jsdelivr.net/npm/@babel/polyfill@7.10.4/dist/polyfill.min.js">
+      <\\/script>')
+      }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js">
@@ -201,7 +319,8 @@ exports[`standalone-single-spa-webpack-plugin import-map-overrides with local st
     app: function () {
       return System.import('basic-usage');
     },
-    activeWhen: ["/"]
+    activeWhen: ["/"],
+    customProps: {}
   });
   if (!window.location.pathname.startsWith('/')) {
     singleSpa.navigateToUrl('/');
