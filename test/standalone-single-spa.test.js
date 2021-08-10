@@ -135,7 +135,32 @@ describe("standalone-single-spa-webpack-plugin", () => {
         new HtmlWebpackPlugin(),
         new StandalonePlugin({
           appOrParcelName: "basic-usage",
+        }),
+      ],
+    };
+
+    const stats = await webpackCompile(config);
+    const html = await readOutputHtml(outputDir);
+    expect(html).toMatchSnapshot();
+  });
+
+  test("customProps option", async () => {
+    const outputDir = path.resolve(__dirname, "./output/custom-props");
+
+    const config = {
+      entry: path.resolve(__dirname, "./fixtures/basic/index.js"),
+      output: {
+        libraryTarget: "system",
+        path: outputDir,
+      },
+      plugins: [
+        new HtmlWebpackPlugin(),
+        new StandalonePlugin({
+          appOrParcelName: "basic-usage",
           importMapOverridesLocalStorageKey: "devtools",
+          customProps: {
+            hi: "there",
+          },
         }),
       ],
     };
