@@ -78,6 +78,13 @@ module.exports = {
       // Note that these props are stringified into the HTML file
       customProps: {
         authToken: "sadf7889fds8u70df9s8fsd"
+      },
+
+      // optional - defaults to turning urlRerouteOnly on
+      // The options object passed into single-spa's start() function.
+      // See https://single-spa.js.org/docs/api#start
+      startOptions: {
+        urlRerouteOnly: true
       }
     })
   ]
