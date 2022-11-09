@@ -1,6 +1,8 @@
 {
   "include": ["lib/**/*"],
   "compilerOptions": {
+    "lib": ["dom", "es5", "es2022"],
+    "types": ["node"],
     "allowJs": true,
     "declaration": true,
     "emitDeclarationOnly": true,

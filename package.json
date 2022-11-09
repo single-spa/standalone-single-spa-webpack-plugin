@@ -17,6 +17,7 @@
   ],
   "devDependencies": {
     "@types/jest": "^29.2.2",
+    "@types/node": "^18.11.9",
     "eslint": "^8.27.0",
     "eslint-config-node-important-stuff": "^2.0.0",
     "html-webpack-plugin": "^5.5.0",
