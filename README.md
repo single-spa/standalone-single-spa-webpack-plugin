@@ -48,6 +48,12 @@ module.exports = {
       // optional - useful for enabling cross-microfrontend imports
       importMapUrl: new URL("https://my-cdn.com/importmap.json"),
 
+      // optional - useful to add multiple import map URLs
+      importMapUrls: [
+        new URL("https://my-cdn.com/importmap2.json"),
+        new URL("https://my-cdn.com/importmap3.json"),
+      ],
+
       // optional - useful for adding an additional, local-only import map
       importMap: {
         imports: {
