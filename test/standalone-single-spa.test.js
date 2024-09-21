@@ -220,6 +220,33 @@ describe("standalone-single-spa-webpack-plugin", () => {
     const html = await readOutputHtml(outputDir);
     expect(html).toMatchSnapshot();
   });
+
+  test("public path", async () => {
+    const outputDir = path.resolve(__dirname, "./output/basic-usage");
+
+    const config = {
+      entry: path.resolve(__dirname, "./fixtures/basic/index.js"),
+      output: {
+        libraryTarget: "system",
+        path: outputDir,
+        publicPath: "/testpublicpath/",
+      },
+      plugins: [
+        new HtmlWebpackPlugin(),
+        new StandalonePlugin({
+          appOrParcelName: "basic-usage",
+          importMapUrls: [
+            new URL("https://react.microfrontends.app/importmap.json"),
+            new URL("https://vue.microfrontends.app/importmap.json"),
+          ],
+        }),
+      ],
+    };
+
+    const stats = await webpackCompile(config);
+    const html = await readOutputHtml(outputDir);
+    expect(html).toMatchSnapshot();
+  });
 });
 
 function webpackCompile(config) {
