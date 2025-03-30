@@ -1,9 +1,12 @@
-const StandaloneSingleSpa = require("../lib/standalone-single-spa");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const webpack = require("webpack");
-const path = require("path");
-const StandalonePlugin = require("../lib/standalone-single-spa");
-const fs = require("fs").promises;
+import { describe, test } from "@jest/globals";
+import StandalonePlugin from "../lib/standalone-single-spa";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import webpack from "webpack";
+import path from "path";
+import fs from "fs/promises";
+import url from "url";
+
+const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 describe("standalone-single-spa-webpack-plugin", () => {
   test("basic-usage", async () => {
@@ -18,9 +21,10 @@ describe("standalone-single-spa-webpack-plugin", () => {
       plugins: [
         new HtmlWebpackPlugin(),
         new StandalonePlugin({
+          HtmlWebpackPlugin,
           appOrParcelName: "basic-usage",
           importMapUrl: new URL(
-            "https://react.microfrontends.app/importmap.json"
+            "https://react.microfrontends.app/importmap.json",
           ),
           importMap: {
             imports: {
@@ -48,10 +52,11 @@ describe("standalone-single-spa-webpack-plugin", () => {
       plugins: [
         new HtmlWebpackPlugin(),
         new StandalonePlugin({
+          HtmlWebpackPlugin,
           isParcel: true,
           appOrParcelName: "basic-parcel",
           importMapUrl: new URL(
-            "https://react.microfrontends.app/importmap.json"
+            "https://react.microfrontends.app/importmap.json",
           ),
           importMap: {
             imports: {
@@ -79,10 +84,11 @@ describe("standalone-single-spa-webpack-plugin", () => {
       plugins: [
         new HtmlWebpackPlugin(),
         new StandalonePlugin({
+          HtmlWebpackPlugin,
           isParcel: true,
           appOrParcelName: "basic-parcel",
           importMapUrl: new URL(
-            "https://react.microfrontends.app/importmap.json"
+            "https://react.microfrontends.app/importmap.json",
           ),
           importMap: {
             imports: {
@@ -111,6 +117,7 @@ describe("standalone-single-spa-webpack-plugin", () => {
       plugins: [
         new HtmlWebpackPlugin(),
         new StandalonePlugin({
+          HtmlWebpackPlugin,
           appOrParcelName: "basic-usage",
           importMapOverrides: false,
         }),
@@ -134,6 +141,7 @@ describe("standalone-single-spa-webpack-plugin", () => {
       plugins: [
         new HtmlWebpackPlugin(),
         new StandalonePlugin({
+          HtmlWebpackPlugin,
           appOrParcelName: "basic-usage",
         }),
       ],
@@ -156,6 +164,7 @@ describe("standalone-single-spa-webpack-plugin", () => {
       plugins: [
         new HtmlWebpackPlugin(),
         new StandalonePlugin({
+          HtmlWebpackPlugin,
           appOrParcelName: "basic-usage",
           importMapOverridesLocalStorageKey: "devtools",
           customProps: {
@@ -182,6 +191,7 @@ describe("standalone-single-spa-webpack-plugin", () => {
       plugins: [
         new HtmlWebpackPlugin(),
         new StandalonePlugin({
+          HtmlWebpackPlugin,
           appOrParcelName: "basic-usage",
           startOptions: {
             urlRerouteOnly: false,
@@ -207,7 +217,9 @@ describe("standalone-single-spa-webpack-plugin", () => {
       plugins: [
         new HtmlWebpackPlugin(),
         new StandalonePlugin({
+          HtmlWebpackPlugin,
           appOrParcelName: "basic-usage",
+          HtmlWebpackPlugin,
           importMapUrls: [
             new URL("https://react.microfrontends.app/importmap.json"),
             new URL("https://vue.microfrontends.app/importmap.json"),
@@ -234,6 +246,36 @@ describe("standalone-single-spa-webpack-plugin", () => {
       plugins: [
         new HtmlWebpackPlugin(),
         new StandalonePlugin({
+          HtmlWebpackPlugin,
+          appOrParcelName: "basic-usage",
+          importMapUrls: [
+            new URL("https://react.microfrontends.app/importmap.json"),
+            new URL("https://vue.microfrontends.app/importmap.json"),
+          ],
+        }),
+      ],
+    };
+
+    const stats = await webpackCompile(config);
+    const html = await readOutputHtml(outputDir);
+    expect(html).toMatchSnapshot();
+  });
+
+  test("systemjs", async () => {
+    const outputDir = path.resolve(__dirname, "./output/basic-usage");
+
+    const config = {
+      entry: path.resolve(__dirname, "./fixtures/basic/index.js"),
+      output: {
+        libraryTarget: "system",
+        path: outputDir,
+        publicPath: "/testpublicpath/",
+      },
+      plugins: [
+        new HtmlWebpackPlugin(),
+        new StandalonePlugin({
+          HtmlWebpackPlugin,
+          moduleFormat: "systemjs",
           appOrParcelName: "basic-usage",
           importMapUrls: [
             new URL("https://react.microfrontends.app/importmap.json"),

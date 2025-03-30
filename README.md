@@ -18,6 +18,8 @@ npm install --save-dev standalone-single-spa-webpack-plugin
 
 # alternatively
 yarn add --dev standalone-single-spa-webpack-plugin
+
+pnpm install --dev standalone-single-spa-webpack-plugin
 ```
 
 ## Usage
@@ -41,6 +43,9 @@ module.exports = {
     new StandaloneSingleSpaPlugin({
       // required
       appOrParcelName: "my-microfrontend-name",
+
+      // optional - either "esm" or "systemjs", defaults to esm as of v6
+      moduleFormat: "esm",
 
       // optional - strongly encouraged for single-spa applications
       activeWhen: ['/route-prefix'],

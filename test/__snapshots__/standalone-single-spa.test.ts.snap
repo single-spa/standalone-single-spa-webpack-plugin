@@ -11,46 +11,30 @@ exports[`standalone-single-spa-webpack-plugin basic-parcel 1`] = `
     <meta name="viewport"
           content="width=device-width,initial-scale=1"
     >
-    <script type="systemjs-importmap"
+    <script type="injector-importmap"
             src="https://react.microfrontends.app/importmap.json"
     >
     </script>
-    <script type="systemjs-importmap">
+    <script type="injector-importmap">
       {
   "imports": {
-    "single-spa": "https://cdn.jsdelivr.net/npm/single-spa/lib/system/single-spa.dev.js",
+    "single-spa": "https://cdn.jsdelivr.net/npm/single-spa/lib/esm/single-spa.dev.js",
     "basic-parcel": "/main.js",
     "foo": "/foo.js"
   }
 }
     </script>
     <meta name="importmap-type"
-          content="systemjs-importmap"
+          content="injector-importmap"
     >
     <script src="https://cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js">
     </script>
     <import-map-overrides-full dev-libs>
     </import-map-overrides-full>
-    <script>
-      if (typeof fetch === 'undefined') {
-        document.write('
-      <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.4.0/dist/fetch.umd.js">
-      <\\/script>')
-      }
-      if (typeof String.prototype.startsWith === 'undefined' || typeof Promise === 'undefined') {
-        document.write('
-      <script src="https://cdn.jsdelivr.net/npm/@babel/polyfill@7.10.4/dist/polyfill.min.js">
-      <\\/script>')
-      }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js">
+    <script src="https://cdn.jsdelivr.net/npm/@single-spa/import-map-injector">
     </script>
     <script>
-      Promise.all([System.import('single-spa'), System.import('basic-parcel')]).then(function (values) {
+      Promise.all([import('single-spa'), import('basic-parcel')]).then(function (values) {
         const singleSpa = values[0];
         const parcelConfig = values[1];
         const parcelContainer = document.createElement('div');
@@ -76,50 +60,34 @@ exports[`standalone-single-spa-webpack-plugin basic-usage 1`] = `
     <meta name="viewport"
           content="width=device-width,initial-scale=1"
     >
-    <script type="systemjs-importmap"
+    <script type="injector-importmap"
             src="https://react.microfrontends.app/importmap.json"
     >
     </script>
-    <script type="systemjs-importmap">
+    <script type="injector-importmap">
       {
   "imports": {
-    "single-spa": "https://cdn.jsdelivr.net/npm/single-spa/lib/system/single-spa.dev.js",
+    "single-spa": "https://cdn.jsdelivr.net/npm/single-spa/lib/esm/single-spa.dev.js",
     "basic-usage": "/main.js",
     "foo": "/foo.js"
   }
 }
     </script>
     <meta name="importmap-type"
-          content="systemjs-importmap"
+          content="injector-importmap"
     >
     <script src="https://cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js">
     </script>
     <import-map-overrides-full dev-libs>
     </import-map-overrides-full>
-    <script>
-      if (typeof fetch === 'undefined') {
-        document.write('
-      <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.4.0/dist/fetch.umd.js">
-      <\\/script>')
-      }
-      if (typeof String.prototype.startsWith === 'undefined' || typeof Promise === 'undefined') {
-        document.write('
-      <script src="https://cdn.jsdelivr.net/npm/@babel/polyfill@7.10.4/dist/polyfill.min.js">
-      <\\/script>')
-      }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js">
+    <script src="https://cdn.jsdelivr.net/npm/@single-spa/import-map-injector">
     </script>
     <script>
-      System.import('single-spa').then(function (singleSpa) {
+      import('single-spa').then(function (singleSpa) {
   singleSpa.registerApplication({
     name: 'basic-usage',
     app: function () {
-      return System.import('basic-usage');
+      return import('basic-usage');
     },
     activeWhen: ["/"],
     customProps: {}
@@ -147,16 +115,16 @@ exports[`standalone-single-spa-webpack-plugin customProps option 1`] = `
     <meta name="viewport"
           content="width=device-width,initial-scale=1"
     >
-    <script type="systemjs-importmap">
+    <script type="injector-importmap">
       {
   "imports": {
-    "single-spa": "https://cdn.jsdelivr.net/npm/single-spa/lib/system/single-spa.dev.js",
+    "single-spa": "https://cdn.jsdelivr.net/npm/single-spa/lib/esm/single-spa.dev.js",
     "basic-usage": "/main.js"
   }
 }
     </script>
     <meta name="importmap-type"
-          content="systemjs-importmap"
+          content="injector-importmap"
     >
     <script src="https://cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js">
     </script>
@@ -164,30 +132,14 @@ exports[`standalone-single-spa-webpack-plugin customProps option 1`] = `
                                show-when-local-storage="devtools"
     >
     </import-map-overrides-full>
-    <script>
-      if (typeof fetch === 'undefined') {
-        document.write('
-      <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.4.0/dist/fetch.umd.js">
-      <\\/script>')
-      }
-      if (typeof String.prototype.startsWith === 'undefined' || typeof Promise === 'undefined') {
-        document.write('
-      <script src="https://cdn.jsdelivr.net/npm/@babel/polyfill@7.10.4/dist/polyfill.min.js">
-      <\\/script>')
-      }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js">
+    <script src="https://cdn.jsdelivr.net/npm/@single-spa/import-map-injector">
     </script>
     <script>
-      System.import('single-spa').then(function (singleSpa) {
+      import('single-spa').then(function (singleSpa) {
   singleSpa.registerApplication({
     name: 'basic-usage',
     app: function () {
-      return System.import('basic-usage');
+      return import('basic-usage');
     },
     activeWhen: ["/"],
     customProps: {"hi":"there"}
@@ -215,41 +167,25 @@ exports[`standalone-single-spa-webpack-plugin disabled import-map-overrides 1`] 
     <meta name="viewport"
           content="width=device-width,initial-scale=1"
     >
-    <script type="systemjs-importmap">
+    <script type="injector-importmap">
       {
   "imports": {
-    "single-spa": "https://cdn.jsdelivr.net/npm/single-spa/lib/system/single-spa.dev.js",
+    "single-spa": "https://cdn.jsdelivr.net/npm/single-spa/lib/esm/single-spa.dev.js",
     "basic-usage": "/main.js"
   }
 }
     </script>
     <meta name="importmap-type"
-          content="systemjs-importmap"
+          content="injector-importmap"
     >
-    <script>
-      if (typeof fetch === 'undefined') {
-        document.write('
-      <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.4.0/dist/fetch.umd.js">
-      <\\/script>')
-      }
-      if (typeof String.prototype.startsWith === 'undefined' || typeof Promise === 'undefined') {
-        document.write('
-      <script src="https://cdn.jsdelivr.net/npm/@babel/polyfill@7.10.4/dist/polyfill.min.js">
-      <\\/script>')
-      }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js">
+    <script src="https://cdn.jsdelivr.net/npm/@single-spa/import-map-injector">
     </script>
     <script>
-      System.import('single-spa').then(function (singleSpa) {
+      import('single-spa').then(function (singleSpa) {
   singleSpa.registerApplication({
     name: 'basic-usage',
     app: function () {
-      return System.import('basic-usage');
+      return import('basic-usage');
     },
     activeWhen: ["/"],
     customProps: {}
@@ -277,45 +213,29 @@ exports[`standalone-single-spa-webpack-plugin import-map-overrides with local st
     <meta name="viewport"
           content="width=device-width,initial-scale=1"
     >
-    <script type="systemjs-importmap">
+    <script type="injector-importmap">
       {
   "imports": {
-    "single-spa": "https://cdn.jsdelivr.net/npm/single-spa/lib/system/single-spa.dev.js",
+    "single-spa": "https://cdn.jsdelivr.net/npm/single-spa/lib/esm/single-spa.dev.js",
     "basic-usage": "/main.js"
   }
 }
     </script>
     <meta name="importmap-type"
-          content="systemjs-importmap"
+          content="injector-importmap"
     >
     <script src="https://cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js">
     </script>
     <import-map-overrides-full dev-libs>
     </import-map-overrides-full>
-    <script>
-      if (typeof fetch === 'undefined') {
-        document.write('
-      <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.4.0/dist/fetch.umd.js">
-      <\\/script>')
-      }
-      if (typeof String.prototype.startsWith === 'undefined' || typeof Promise === 'undefined') {
-        document.write('
-      <script src="https://cdn.jsdelivr.net/npm/@babel/polyfill@7.10.4/dist/polyfill.min.js">
-      <\\/script>')
-      }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js">
+    <script src="https://cdn.jsdelivr.net/npm/@single-spa/import-map-injector">
     </script>
     <script>
-      System.import('single-spa').then(function (singleSpa) {
+      import('single-spa').then(function (singleSpa) {
   singleSpa.registerApplication({
     name: 'basic-usage',
     app: function () {
-      return System.import('basic-usage');
+      return import('basic-usage');
     },
     activeWhen: ["/"],
     customProps: {}
@@ -343,53 +263,37 @@ exports[`standalone-single-spa-webpack-plugin multiple import map urls 1`] = `
     <meta name="viewport"
           content="width=device-width,initial-scale=1"
     >
-    <script type="systemjs-importmap"
+    <script type="injector-importmap"
             src="https://react.microfrontends.app/importmap.json"
     >
     </script>
-    <script type="systemjs-importmap"
+    <script type="injector-importmap"
             src="https://vue.microfrontends.app/importmap.json"
     >
     </script>
-    <script type="systemjs-importmap">
+    <script type="injector-importmap">
       {
   "imports": {
-    "single-spa": "https://cdn.jsdelivr.net/npm/single-spa/lib/system/single-spa.dev.js",
+    "single-spa": "https://cdn.jsdelivr.net/npm/single-spa/lib/esm/single-spa.dev.js",
     "basic-usage": "/main.js"
   }
 }
     </script>
     <meta name="importmap-type"
-          content="systemjs-importmap"
+          content="injector-importmap"
     >
     <script src="https://cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js">
     </script>
     <import-map-overrides-full dev-libs>
     </import-map-overrides-full>
-    <script>
-      if (typeof fetch === 'undefined') {
-        document.write('
-      <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.4.0/dist/fetch.umd.js">
-      <\\/script>')
-      }
-      if (typeof String.prototype.startsWith === 'undefined' || typeof Promise === 'undefined') {
-        document.write('
-      <script src="https://cdn.jsdelivr.net/npm/@babel/polyfill@7.10.4/dist/polyfill.min.js">
-      <\\/script>')
-      }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js">
+    <script src="https://cdn.jsdelivr.net/npm/@single-spa/import-map-injector">
     </script>
     <script>
-      System.import('single-spa').then(function (singleSpa) {
+      import('single-spa').then(function (singleSpa) {
   singleSpa.registerApplication({
     name: 'basic-usage',
     app: function () {
-      return System.import('basic-usage');
+      return import('basic-usage');
     },
     activeWhen: ["/"],
     customProps: {}
@@ -407,6 +311,114 @@ exports[`standalone-single-spa-webpack-plugin multiple import map urls 1`] = `
 `;
 
 exports[`standalone-single-spa-webpack-plugin public path 1`] = `
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Webpack App
+    </title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1"
+    >
+    <script type="injector-importmap"
+            src="https://react.microfrontends.app/importmap.json"
+    >
+    </script>
+    <script type="injector-importmap"
+            src="https://vue.microfrontends.app/importmap.json"
+    >
+    </script>
+    <script type="injector-importmap">
+      {
+  "imports": {
+    "single-spa": "https://cdn.jsdelivr.net/npm/single-spa/lib/esm/single-spa.dev.js",
+    "basic-usage": "/testpublicpath/main.js"
+  }
+}
+    </script>
+    <meta name="importmap-type"
+          content="injector-importmap"
+    >
+    <script src="https://cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js">
+    </script>
+    <import-map-overrides-full dev-libs>
+    </import-map-overrides-full>
+    <script src="https://cdn.jsdelivr.net/npm/@single-spa/import-map-injector">
+    </script>
+    <script>
+      import('single-spa').then(function (singleSpa) {
+  singleSpa.registerApplication({
+    name: 'basic-usage',
+    app: function () {
+      return import('basic-usage');
+    },
+    activeWhen: ["/"],
+    customProps: {}
+  });
+  if (!window.location.pathname.startsWith('/')) {
+    singleSpa.navigateToUrl('/');
+  }
+  singleSpa.start({"urlRerouteOnly":true});
+});
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
+`;
+
+exports[`standalone-single-spa-webpack-plugin startOptions option 1`] = `
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Webpack App
+    </title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1"
+    >
+    <script type="injector-importmap">
+      {
+  "imports": {
+    "single-spa": "https://cdn.jsdelivr.net/npm/single-spa/lib/esm/single-spa.dev.js",
+    "basic-usage": "/main.js"
+  }
+}
+    </script>
+    <meta name="importmap-type"
+          content="injector-importmap"
+    >
+    <script src="https://cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js">
+    </script>
+    <import-map-overrides-full dev-libs>
+    </import-map-overrides-full>
+    <script src="https://cdn.jsdelivr.net/npm/@single-spa/import-map-injector">
+    </script>
+    <script>
+      import('single-spa').then(function (singleSpa) {
+  singleSpa.registerApplication({
+    name: 'basic-usage',
+    app: function () {
+      return import('basic-usage');
+    },
+    activeWhen: ["/"],
+    customProps: {}
+  });
+  if (!window.location.pathname.startsWith('/')) {
+    singleSpa.navigateToUrl('/');
+  }
+  singleSpa.start({"urlRerouteOnly":false});
+});
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
+`;
+
+exports[`standalone-single-spa-webpack-plugin systemjs 1`] = `
 <!doctype html>
 <html>
   <head>
@@ -440,20 +452,6 @@ exports[`standalone-single-spa-webpack-plugin public path 1`] = `
     </script>
     <import-map-overrides-full dev-libs>
     </import-map-overrides-full>
-    <script>
-      if (typeof fetch === 'undefined') {
-        document.write('
-      <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.4.0/dist/fetch.umd.js">
-      <\\/script>')
-      }
-      if (typeof String.prototype.startsWith === 'undefined' || typeof Promise === 'undefined') {
-        document.write('
-      <script src="https://cdn.jsdelivr.net/npm/@babel/polyfill@7.10.4/dist/polyfill.min.js">
-      <\\/script>')
-      }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js">
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js">
@@ -472,72 +470,6 @@ exports[`standalone-single-spa-webpack-plugin public path 1`] = `
     singleSpa.navigateToUrl('/');
   }
   singleSpa.start({"urlRerouteOnly":true});
-});
-    </script>
-  </head>
-  <body>
-  </body>
-</html>
-`;
-
-exports[`standalone-single-spa-webpack-plugin startOptions option 1`] = `
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>
-      Webpack App
-    </title>
-    <meta name="viewport"
-          content="width=device-width,initial-scale=1"
-    >
-    <script type="systemjs-importmap">
-      {
-  "imports": {
-    "single-spa": "https://cdn.jsdelivr.net/npm/single-spa/lib/system/single-spa.dev.js",
-    "basic-usage": "/main.js"
-  }
-}
-    </script>
-    <meta name="importmap-type"
-          content="systemjs-importmap"
-    >
-    <script src="https://cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js">
-    </script>
-    <import-map-overrides-full dev-libs>
-    </import-map-overrides-full>
-    <script>
-      if (typeof fetch === 'undefined') {
-        document.write('
-      <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.4.0/dist/fetch.umd.js">
-      <\\/script>')
-      }
-      if (typeof String.prototype.startsWith === 'undefined' || typeof Promise === 'undefined') {
-        document.write('
-      <script src="https://cdn.jsdelivr.net/npm/@babel/polyfill@7.10.4/dist/polyfill.min.js">
-      <\\/script>')
-      }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js">
-    </script>
-    <script>
-      System.import('single-spa').then(function (singleSpa) {
-  singleSpa.registerApplication({
-    name: 'basic-usage',
-    app: function () {
-      return System.import('basic-usage');
-    },
-    activeWhen: ["/"],
-    customProps: {}
-  });
-  if (!window.location.pathname.startsWith('/')) {
-    singleSpa.navigateToUrl('/');
-  }
-  singleSpa.start({"urlRerouteOnly":false});
 });
     </script>
   </head>
