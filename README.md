@@ -73,6 +73,11 @@ module.exports = {
       // optional - you can disable the plugin by passing in this boolean
       disabled: false,
 
+      // optional - the standalone plugin relies on optionalDependencies in the
+      // package.json. If this doesn't work for you, pass in your HtmlWebpackPlugin
+      // to ensure the correct one is being referenced
+      HtmlWebpackPlugin,
+
       // optional - defaults to true - turns on or off import-map-overrides.
       importMapOverrides: true,
 
