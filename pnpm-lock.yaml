@@ -4,15 +4,12 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  eslint-config-node-important-stuff: link:../eslint-config-node-important-stuff
-
 importers:
   .:
     dependencies:
       single-spa:
-        specifier: link:../single-spa
-        version: link:../single-spa
+        specifier: ">=7.0.0-beta.3"
+        version: 7.0.0-beta.3
     devDependencies:
       "@babel/preset-typescript":
         specifier: ^7.27.0
@@ -2613,6 +2610,12 @@ packages:
         integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==,
       }
 
+  single-spa@7.0.0-beta.3:
+    resolution:
+      {
+        integrity: sha512-uvL704bNHBp/uQ/HZL6KteXVoFCpfpDfBw9s5KCUO9kysoUZHhpEg9SColA9iVjXPyBeR2bEDbKDdXeU98onHw==,
+      }
+
   sisteransi@1.0.5:
     resolution:
       {
@@ -4798,6 +4801,8 @@ snapshots:
   shebang-regex@3.0.0: {}
 
   signal-exit@3.0.7: {}
+
+  single-spa@7.0.0-beta.3: {}
 
   sisteransi@1.0.5: {}
 

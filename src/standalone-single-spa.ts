@@ -68,8 +68,8 @@ export default class StandaloneSingleSpaPlugin {
   }
   apply(compiler) {
     compiler.hooks.compilation.tap(pluginName, (compilation) => {
-      // @ts-expect-error
       const compilationHooks =
+        // @ts-expect-error
         this.options.HtmlWebpackPlugin.getCompilationHooks(compilation);
       compilationHooks.alterAssetTags.tap(pluginName, (data) => {
         this.modifyScripts({ scripts: data.assetTags.scripts });
