@@ -20,7 +20,7 @@ describe("standalone-single-spa-webpack-plugin", () => {
         new StandalonePlugin({
           appOrParcelName: "basic-usage",
           importMapUrl: new URL(
-            "https://react.microfrontends.app/importmap.json"
+            "https://react.microfrontends.app/importmap.json",
           ),
           importMap: {
             imports: {
@@ -51,7 +51,7 @@ describe("standalone-single-spa-webpack-plugin", () => {
           isParcel: true,
           appOrParcelName: "basic-parcel",
           importMapUrl: new URL(
-            "https://react.microfrontends.app/importmap.json"
+            "https://react.microfrontends.app/importmap.json",
           ),
           importMap: {
             imports: {
@@ -82,7 +82,7 @@ describe("standalone-single-spa-webpack-plugin", () => {
           isParcel: true,
           appOrParcelName: "basic-parcel",
           importMapUrl: new URL(
-            "https://react.microfrontends.app/importmap.json"
+            "https://react.microfrontends.app/importmap.json",
           ),
           importMap: {
             imports: {
@@ -208,6 +208,7 @@ describe("standalone-single-spa-webpack-plugin", () => {
         new HtmlWebpackPlugin(),
         new StandalonePlugin({
           appOrParcelName: "basic-usage",
+          HtmlWebpackPlugin,
           importMapUrls: [
             new URL("https://react.microfrontends.app/importmap.json"),
             new URL("https://vue.microfrontends.app/importmap.json"),

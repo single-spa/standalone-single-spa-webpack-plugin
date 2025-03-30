@@ -18,6 +18,8 @@ npm install --save-dev standalone-single-spa-webpack-plugin
 
 # alternatively
 yarn add --dev standalone-single-spa-webpack-plugin
+
+pnpm install --dev standalone-single-spa-webpack-plugin
 ```
 
 ## Usage
@@ -41,6 +43,9 @@ module.exports = {
     new StandaloneSingleSpaPlugin({
       // required
       appOrParcelName: "my-microfrontend-name",
+
+      // optional - either "esm" or "systemjs", defaults to esm as of v6
+      moduleFormat: "esm",
 
       // optional - strongly encouraged for single-spa applications
       activeWhen: ['/route-prefix'],
@@ -67,11 +72,6 @@ module.exports = {
 
       // optional - you can disable the plugin by passing in this boolean
       disabled: false,
-
-      // optional - the standalone plugin relies on optionalDependencies in the
-      // package.json. If this doesn't work for you, pass in your HtmlWebpackPlugin
-      // to ensure the correct one is being referenced
-      HtmlWebpackPlugin,
 
       // optional - defaults to true - turns on or off import-map-overrides.
       importMapOverrides: true,

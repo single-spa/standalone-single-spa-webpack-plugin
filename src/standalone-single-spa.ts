@@ -1,23 +1,20 @@
-let isWebpack5, HtmlWebpackPlugin;
+import { StartOpts } from "single-spa";
+import type HtmlWebpackPlugin from "html-webpack-plugin";
 
-try {
-  HtmlWebpackPlugin = require("html-webpack-plugin");
-} catch (err) {}
-
-try {
-  isWebpack5 = require("webpack").version.startsWith("5");
-} catch (err) {
-  isWebpack5 = false;
-}
+debugger;
 
 const pluginName = `StandaloneSingleSpaPlugin`;
 
-const defaultOptions = {
+const defaultOptions: Omit<
+  StandaloneSingleSpaPluginOptions,
+  "appOrParcelName" | "HtmlWebpackPlugin"
+> = {
+  customProps: {},
   isParcel: false,
   activeWhen: ["/"],
   importMap: { imports: {} },
   disabled: false,
-  HtmlWebpackPlugin,
+  moduleFormat: "esm",
   importMapOverrides: true,
   importMapOverridesLocalStorageKey: null,
   startOptions: {
@@ -25,35 +22,39 @@ const defaultOptions = {
   },
 };
 
-class StandaloneSingleSpaPlugin {
-  /**
-   *
-   * @typedef {{
-   * imports: object;
-   * scopes: object;
-   * }} ImportMap
-   *
-   * @param {{
-   * appOrParcelName: string;
-   * activeWhen?: string[];
-   * importMapUrl?: URL;
-   * importMapUrls?: URL[];
-   * importMap?: ImportMap;
-   * isParcel?: boolean;
-   * disabled?: boolean;
-   * importMapOverrides?: boolean;
-   * importMapOverridesLocalStorageKey?: string;
-   * HtmlWebpackPlugin?: any;
-   * }} options
-   */
-  constructor(options) {
+interface ImportMap {
+  imports: Record<string, string>;
+  scopes?: Record<string, Record<string, string>>;
+}
+
+interface StandaloneSingleSpaPluginOptions {
+  appOrParcelName: string;
+  activeWhen?: string[];
+  moduleFormat: "esm" | "systemjs";
+  importMapUrl?: URL;
+  importMapUrls?: URL[];
+  importMap?: ImportMap;
+  isParcel?: boolean;
+  disabled?: boolean;
+  importMapOverrides?: boolean;
+  importMapOverridesLocalStorageKey?: string;
+  HtmlWebpackPlugin: HtmlWebpackPlugin;
+  customProps: object;
+  startOptions: StartOpts;
+}
+
+export default class StandaloneSingleSpaPlugin {
+  private options: StandaloneSingleSpaPluginOptions;
+  private importMethod: string;
+
+  constructor(options: StandaloneSingleSpaPluginOptions) {
     if (!options) {
       throw Error(`${pluginName}: options object is required`);
     }
 
     if (typeof options.appOrParcelName !== "string") {
       throw Error(
-        `${pluginName}: the options.appOrParcelName string must be provided`
+        `${pluginName}: the options.appOrParcelName string must be provided`,
       );
     }
 
@@ -61,34 +62,38 @@ class StandaloneSingleSpaPlugin {
       ...defaultOptions,
       ...options,
     };
+
+    this.importMethod =
+      this.options.moduleFormat === "esm" ? "import" : "System.import";
   }
   apply(compiler) {
     compiler.hooks.compilation.tap(pluginName, (compilation) => {
-      this.options.HtmlWebpackPlugin.getHooks(compilation).alterAssetTags.tap(
-        pluginName,
-        (data) => {
-          this.modifyScripts({ scripts: data.assetTags.scripts });
-        }
-      );
+      // @ts-expect-error
+      const compilationHooks =
+        this.options.HtmlWebpackPlugin.getCompilationHooks(compilation);
+      compilationHooks.alterAssetTags.tap(pluginName, (data) => {
+        this.modifyScripts({ scripts: data.assetTags.scripts });
+        return data;
+      });
     });
   }
   modifyScripts({ scripts }) {
     if (scripts.modifiedBySingleSpaStandalonePlugin) {
       throw Error(
-        `standalone-single-spa-webpack-plugin: You have two separate instances of standalone-single-spa-webpack-plugin in your webpack config. If using webpack-config-single-spa or vue-cli-plugin-single-spa, you do not need to manually add the standalone plugin since it's already added by those projects.`
+        `standalone-single-spa-webpack-plugin: You have two separate instances of standalone-single-spa-webpack-plugin in your webpack config. If using webpack-config-single-spa or vue-cli-plugin-single-spa, you do not need to manually add the standalone plugin since it's already added by those projects.`,
       );
     }
 
     if (scripts.length === 0) {
       throw Error(
-        `standalone-single-spa-webpack-plugin: HtmlWebpackPlugin must generate at least one <script> in its output, but did not. This usually indicates that there is a problem with your webpack configuration.`
+        `standalone-single-spa-webpack-plugin: HtmlWebpackPlugin must generate at least one <script> in its output, but did not. This usually indicates that there is a problem with your webpack configuration.`,
       );
     }
 
     const mainScript = scripts[0];
     if (mainScript.tagName !== "script" || !mainScript.attributes.src) {
       throw Error(
-        `standalone-single-spa-webpack-plugin: HtmlWebpackPlugin contains an HTML element that's not a <script> with a 'src' attribute in its scripts array. Found ${mainScript.tagName}. This usually indicates a problem with your webpack configuration`
+        `standalone-single-spa-webpack-plugin: HtmlWebpackPlugin contains an HTML element that's not a <script> with a 'src' attribute in its scripts array. Found ${mainScript.tagName}. This usually indicates a problem with your webpack configuration`,
       );
     }
 
@@ -114,13 +119,12 @@ class StandaloneSingleSpaPlugin {
       return;
     }
 
-    // Delete the main script, since it will be loaded later by SystemJS
+    // Delete the main script, since it will be loaded later
     scripts.splice(0, 1);
 
     const importMap = {
       imports: {
-        "single-spa":
-          "https://cdn.jsdelivr.net/npm/single-spa/lib/system/single-spa.dev.js",
+        "single-spa": `https://cdn.jsdelivr.net/npm/single-spa/lib/${this.options.moduleFormat === "esm" ? "esm" : "system"}/single-spa.dev.js`,
         [this.options.appOrParcelName]: mainScriptSrc,
       },
     };
@@ -128,6 +132,9 @@ class StandaloneSingleSpaPlugin {
     for (let name in this.options.importMap.imports) {
       importMap.imports[name] = this.options.importMap.imports[name];
     }
+
+    const importMapPrefix =
+      this.options.moduleFormat === "esm" ? "injector" : "systemjs";
 
     const pluginRuntime = this.options.isParcel
       ? this.parcelRuntime()
@@ -138,7 +145,7 @@ class StandaloneSingleSpaPlugin {
         tagName: "script",
         voidTag: false,
         attributes: {
-          type: "systemjs-importmap",
+          type: `${importMapPrefix}-importmap`,
           src: this.options.importMapUrl.href,
         },
       });
@@ -147,7 +154,7 @@ class StandaloneSingleSpaPlugin {
     if (this.options.importMapUrls) {
       if (!Array.isArray(this.options.importMapUrls)) {
         throw Error(
-          `standalone-single-spa-webpack-plugin: importMapUrls option must be an array, if present`
+          `standalone-single-spa-webpack-plugin: importMapUrls option must be an array, if present`,
         );
       }
 
@@ -156,7 +163,7 @@ class StandaloneSingleSpaPlugin {
           tagName: "script",
           voidTag: false,
           attributes: {
-            type: "systemjs-importmap",
+            type: `${importMapPrefix}-importmap`,
             src: importMapUrl.href,
           },
         });
@@ -166,7 +173,7 @@ class StandaloneSingleSpaPlugin {
     scripts.push({
       tagName: "script",
       voidTag: false,
-      attributes: { type: "systemjs-importmap" },
+      attributes: { type: `${importMapPrefix}-importmap` },
       innerHTML: JSON.stringify(importMap, null, 2),
     });
     scripts.push({
@@ -174,7 +181,7 @@ class StandaloneSingleSpaPlugin {
       voidTag: true,
       attributes: {
         name: "importmap-type",
-        content: "systemjs-importmap",
+        content: `${importMapPrefix}-importmap`,
       },
     });
     if (this.options.importMapOverrides) {
@@ -202,42 +209,33 @@ class StandaloneSingleSpaPlugin {
         attributes: imoUIAttrs,
       });
     }
-    scripts.push({
-      tagName: "script",
-      voidTag: false,
-      innerHTML: `
-      if (typeof fetch === 'undefined') {
-        document.write('<script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.4.0/dist/fetch.umd.js"><\\/script>')
-      }
-      if (typeof String.prototype.startsWith === 'undefined' || typeof Promise === 'undefined') {
-        document.write('<script src="https://cdn.jsdelivr.net/npm/@babel/polyfill@7.10.4/dist/polyfill.min.js"><\\/script>')
-      }
-      `,
-    });
-    scripts.push({
-      tagName: "script",
-      voidTag: false,
-      attributes: {
-        defer: false,
-        src: "https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js",
-      },
-    });
-    scripts.push({
-      tagName: "script",
-      voidTag: false,
-      attributes: {
-        defer: false,
-        src: "https://cdn.jsdelivr.net/npm/systemjs/dist/system.js",
-      },
-    });
-    scripts.push({
-      tagName: "script",
-      voidTag: false,
-      attributes: {
-        defer: false,
-        src: "https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js",
-      },
-    });
+    if (this.options.moduleFormat === "systemjs") {
+      scripts.push({
+        tagName: "script",
+        voidTag: false,
+        attributes: {
+          defer: false,
+          src: "https://cdn.jsdelivr.net/npm/systemjs/dist/system.js",
+        },
+      });
+      scripts.push({
+        tagName: "script",
+        voidTag: false,
+        attributes: {
+          defer: false,
+          src: "https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js",
+        },
+      });
+    } else {
+      scripts.push({
+        tagName: "script",
+        voidTag: false,
+        attributes: {
+          defer: false,
+          src: "https://cdn.jsdelivr.net/npm/@single-spa/import-map-injector",
+        },
+      });
+    }
     scripts.push({
       tagName: "script",
       voidTag: false,
@@ -246,11 +244,11 @@ class StandaloneSingleSpaPlugin {
   }
   applicationRuntime() {
     return `
-      System.import('single-spa').then(function (singleSpa) {
+      ${this.importMethod}('single-spa').then(function (singleSpa) {
         singleSpa.registerApplication({
           name: '${this.options.appOrParcelName}',
           app: function () {
-            return System.import('${this.options.appOrParcelName}');
+            return ${this.importMethod}('${this.options.appOrParcelName}');
           },
           activeWhen: ${JSON.stringify(this.options.activeWhen)},
           customProps: ${
@@ -272,7 +270,7 @@ class StandaloneSingleSpaPlugin {
   }
   parcelRuntime() {
     return `
-      Promise.all([System.import('single-spa'), System.import('${this.options.appOrParcelName}')]).then(function (values) {
+      Promise.all([${this.importMethod}('single-spa'), ${this.importMethod}('${this.options.appOrParcelName}')]).then(function (values) {
         const singleSpa = values[0];
         const parcelConfig = values[1];
         const parcelContainer = document.createElement('div');
@@ -337,9 +335,7 @@ class StandaloneSingleSpaPlugin {
       <h2>If you prefer Standalone mode</h2>
       <p>
         To run this microfrontend in "standalone" mode, the standalone-single-spa-webpack-plugin must not be disabled. In some cases,
-        this is done by running <code>npm run start:standalone</code>. Alternatively, you can add <code>--env${
-          isWebpack5 ? " " : "."
-        }standalone</code> to your package.json start script
+        this is done by running <code>npm run start:standalone</code>. Alternatively, you can add <code>--env standalone</code> to your package.json start script
         if you are using webpack-config-single-spa.
       </p>
         If neither of those work for you, see more details about enabling standalone mode at
@@ -354,5 +350,3 @@ class StandaloneSingleSpaPlugin {
     `;
   }
 }
-
-module.exports = StandaloneSingleSpaPlugin;
