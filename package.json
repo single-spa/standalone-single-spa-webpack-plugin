@@ -33,6 +33,7 @@
     "jest-serializer-html": "^7.1.0",
     "prettier": "^3.5.3",
     "pretty-quick": "^4.1.1",
+    "single-spa": ">=7.0.0-beta.3",
     "typescript": "^5.8.2",
     "webpack": "5.98.0"
   },
@@ -57,8 +58,5 @@
   "homepage": "https://github.com/single-spa/standalone-single-spa-webpack-plugin#readme",
   "engines": {
     "node": ">= 8.3.0"
-  },
-  "dependencies": {
-    "single-spa": ">=7.0.0-beta.3"
   }
 }
