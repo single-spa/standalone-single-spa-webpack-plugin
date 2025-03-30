@@ -1,8 +1,6 @@
 import { StartOpts } from "single-spa";
 import type HtmlWebpackPlugin from "html-webpack-plugin";
 
-debugger;
-
 const pluginName = `StandaloneSingleSpaPlugin`;
 
 const defaultOptions: Omit<
