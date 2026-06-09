@@ -19,7 +19,7 @@
     "check-format": "prettier --check .",
     "format": "prettier --write ."
   },
-  "types": "types/standalone-single-spa.d.ts",
+  "types": "lib/standalone-single-spa.d.ts",
   "files": [
     "lib"
   ],
